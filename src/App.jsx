@@ -1,17 +1,35 @@
 import PostLists from "./components/posts/PostLists";
 import { Navbar } from "./components/posts/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserLogin } from "./components/user/UserLogin";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts } from "./features/postsSlice";
 
 const users = [
-  { userId: 1, username: "user1" },
-  { userId: 2, username: "rohitha" },
-  { userId: 3, username: "user3" },
+  { userId: 1, username: "Amal" },
+  { userId: 2, username: "Kamal" },
+  { userId: 3, username: "Namal" },
+  { userId: 4, username: "Sumal" },
+  { userId: 5, username: "Damith" },
 ];
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUsername] = useState("");
+  const dispatch = useDispatch();
+  const { posts, loading, error } = useSelector((state) => state.posts);
+
+  const userUniquePosts = posts.filter(
+    (post) =>
+      post.userId === users.find((user) => user.username === userName)?.userId,
+  );
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, [dispatch]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="min-h-screen bg-slate-900">
@@ -22,7 +40,7 @@ const App = () => {
       />
       <main className="pt-10">
         {isLoggedIn ? (
-          <PostLists />
+          <PostLists posts={userUniquePosts} />
         ) : (
           <UserLogin
             setUsername={setUsername}

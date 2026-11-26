@@ -1,10 +1,10 @@
 import { useState } from "react";
-import TableRow from "../TableRow";
+import TableRow from "../posts/TableRow";
 import DeleteConfirm from "./DeleteConfirm";
 
-const Table = () => {
+const Table = ({ posts }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
+  console.log(posts);
   return (
     <div className="overflow-hidden rounded-xl border border-slate-700 bg-slate-800 shadow-xl">
       {showDeleteModal && (
@@ -29,18 +29,15 @@ const Table = () => {
 
         <tbody className="divide-y divide-slate-700">
           {/* Repeat this <tr> with .map() */}
-
-          <TableRow setShowDeleteModal={setShowDeleteModal} />
+          {posts.map((post) => (
+            <TableRow
+              key={post.id}
+              post={post}
+              setShowDeleteModal={setShowDeleteModal}
+            />
+          ))}
         </tbody>
       </table>
-
-      {/* Empty state: show only when posts.length === 0, instead of the rows */}
-      {/*
-        <div className="px-6 py-14 text-center">
-          <p className="font-medium text-slate-300">No posts yet</p>
-          <p className="mt-1 text-sm text-slate-500">Create your first post to get started.</p>
-        </div>
-        */}
     </div>
   );
 };
