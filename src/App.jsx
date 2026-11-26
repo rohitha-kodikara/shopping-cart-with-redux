@@ -8,7 +8,7 @@ import { fetchPosts } from "./features/postsSlice";
 const users = [
   { userId: 1, username: "Amal" },
   { userId: 2, username: "Kamal" },
-  { userId: 3, username: "Namal" },
+  { userId: 3, username: "Nimal" },
   { userId: 4, username: "Sumal" },
   { userId: 5, username: "Damith" },
 ];
@@ -23,6 +23,8 @@ const App = () => {
     (post) =>
       post.userId === users.find((user) => user.username === userName)?.userId,
   );
+
+  const userId = users.find((user) => user.username === userName)?.userId;
 
   useEffect(() => {
     dispatch(fetchPosts());
@@ -40,7 +42,7 @@ const App = () => {
       />
       <main className="pt-10">
         {isLoggedIn ? (
-          <PostLists posts={userUniquePosts} />
+          <PostLists posts={userUniquePosts} userId={userId} />
         ) : (
           <UserLogin
             setUsername={setUsername}

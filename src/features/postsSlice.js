@@ -122,7 +122,7 @@ const postsSlice = createSlice({
       })
       .addCase(addPost.fulfilled, (state, action) => {
         state.loading = false;
-        state.posts.push(action.payload);
+        state.posts.unshift(action.payload);
       })
       .addCase(updatePost.fulfilled, (state, action) => {
         state.loading = false;

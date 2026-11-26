@@ -4,7 +4,7 @@ import DeleteConfirm from "./DeleteConfirm";
 
 const Table = ({ posts }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  console.log(posts);
+
   return (
     <div className="overflow-hidden rounded-xl border border-slate-700 bg-slate-800 shadow-xl">
       {showDeleteModal && (

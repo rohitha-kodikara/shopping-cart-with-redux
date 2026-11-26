@@ -2,7 +2,7 @@ import { useState } from "react";
 import Table from "./Table";
 import { CreatePost } from "./CreatePost";
 
-export default function PostList({ posts }) {
+export default function PostList({ posts, userId }) {
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
 
   return (
@@ -25,7 +25,10 @@ export default function PostList({ posts }) {
 
         {/*================posts form=================*/}
         {showCreatePostForm && (
-          <CreatePost setShowCreatePostForm={setShowCreatePostForm} />
+          <CreatePost
+            userId={userId}
+            setShowCreatePostForm={setShowCreatePostForm}
+          />
         )}
         {/* Table */}
         <Table posts={posts} />
