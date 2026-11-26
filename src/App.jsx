@@ -1,11 +1,7 @@
-import React from 'react'
+import PostLists from "./components/PostLists";
 
 const App = () => {
-  return (
-    <div>
-      REACT PROJECT 01
-    </div>
-  )
-}
+  return <PostLists />;
+};
 
-export default App
+export default App;
