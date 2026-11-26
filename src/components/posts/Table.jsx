@@ -1,8 +1,15 @@
-import TableRow from "./TableRow";
+import { useState } from "react";
+import TableRow from "../TableRow";
+import DeleteConfirm from "./DeleteConfirm";
 
 const Table = () => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   return (
     <div className="overflow-hidden rounded-xl border border-slate-700 bg-slate-800 shadow-xl">
+      {showDeleteModal && (
+        <DeleteConfirm setShowDeleteModal={setShowDeleteModal} />
+      )}
       <table className="w-full table-fixed text-left text-sm">
         <colgroup>
           <col className="w-16" />
@@ -22,9 +29,8 @@ const Table = () => {
 
         <tbody className="divide-y divide-slate-700">
           {/* Repeat this <tr> with .map() */}
-          <TableRow />
-          <TableRow />
-          <TableRow />
+
+          <TableRow setShowDeleteModal={setShowDeleteModal} />
         </tbody>
       </table>
 
