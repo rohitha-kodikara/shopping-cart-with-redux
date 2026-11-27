@@ -16,6 +16,7 @@ const users = [
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUsername] = useState("");
+  const [currentPostId, setCurrentPostId] = useState(null);
   const dispatch = useDispatch();
   const { posts, loading, error } = useSelector((state) => state.posts);
 
@@ -44,6 +45,8 @@ const App = () => {
             posts={userUniquePosts}
             userId={userId}
             isLoading={loading}
+            setCurrentPostId={setCurrentPostId}
+            currentPostId={currentPostId}
           />
         ) : (
           <UserLogin

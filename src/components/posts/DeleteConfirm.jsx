@@ -7,14 +7,14 @@ export default function DeleteConfirm({
   setCurrentPostId,
 }) {
   const dispatch = useDispatch();
-  const deletedPostIds = useSelector((state) => state.posts.deletedPostIds);
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/60 p-4">
       <div className="w-full max-w-sm rounded-xl bg-slate-800 border border-slate-700 p-6 shadow-2xl">
         <h3 className="mb-2 text-lg font-semibold text-white">Delete post?</h3>
         <p className="mb-6 text-sm text-slate-300">
-          This will permanently delete post #1. You can't undo this.
+          This will permanently delete post {currentPostId}. You can't undo
+          this.
         </p>
         <div className="flex justify-end gap-2">
           <button

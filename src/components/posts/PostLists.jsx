@@ -3,7 +3,13 @@ import Table from "./Table";
 import { CreatePost } from "./CreatePost";
 import { useSelector } from "react-redux";
 
-export default function PostList({ posts, userId, isLoading = false }) {
+export default function PostList({
+  posts,
+  userId,
+  isLoading = false,
+  setCurrentPostId,
+  currentPostId,
+}) {
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
 
   const deletedPostIds = useSelector((state) => state.posts.deletedPostIds);
@@ -21,7 +27,10 @@ export default function PostList({ posts, userId, isLoading = false }) {
             </h1>
           </div>
           <button
-            onClick={() => setShowCreatePostForm((prev) => !prev)}
+            onClick={() => {
+              setShowCreatePostForm((prev) => !prev);
+              setCurrentPostId(null);
+            }}
             className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
           >
             <span className="text-lg leading-none">+</span>
@@ -32,12 +41,21 @@ export default function PostList({ posts, userId, isLoading = false }) {
         {/*================posts form=================*/}
         {showCreatePostForm && (
           <CreatePost
+            key={currentPostId ?? "new"}
             userId={userId}
             setShowCreatePostForm={setShowCreatePostForm}
+            mode={currentPostId == null ? "create" : "update"}
+            currentPostId={currentPostId}
           />
         )}
         {/* Table */}
-        <Table posts={visiblePosts} isLoading={isLoading} />
+        <Table
+          posts={visiblePosts}
+          isLoading={isLoading}
+          setShowCreatePostForm={setShowCreatePostForm}
+          setCurrentPostId={setCurrentPostId}
+          currentPostId={currentPostId}
+        />
       </div>
     </>
   );

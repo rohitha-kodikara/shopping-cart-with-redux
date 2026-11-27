@@ -3,10 +3,14 @@ import TableRow from "../posts/TableRow";
 import DeleteConfirm from "./DeleteConfirm";
 import TableSkeleton from "./TableSkeleton";
 
-const Table = ({ posts, isLoading = false }) => {
+const Table = ({
+  posts,
+  isLoading = false,
+  setShowCreatePostForm,
+  setCurrentPostId,
+  currentPostId,
+}) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  const [currentPostId, setCurrentPostId] = useState(null);
 
   return (
     <div className="overflow-hidden rounded-xl border border-slate-700 bg-slate-800 shadow-xl">
@@ -44,6 +48,8 @@ const Table = ({ posts, isLoading = false }) => {
                 post={post}
                 setShowDeleteModal={setShowDeleteModal}
                 setCurrentPostId={setCurrentPostId}
+                setShowCreatePostForm={setShowCreatePostForm}
+                currentPostId={currentPostId}
               />
             ))}
           </tbody>

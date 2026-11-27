@@ -1,6 +1,12 @@
+import { CreatePost } from "./CreatePost";
 import TableActions from "./TableActions";
 
-const TableRow = ({ post, setShowDeleteModal, setCurrentPostId }) => {
+const TableRow = ({
+  post,
+  setShowDeleteModal,
+  setCurrentPostId,
+  setShowCreatePostForm,
+}) => {
   return (
     <tr className="align-middle transition hover:bg-slate-800/50 even:bg-slate-800/30">
       <td className="px-5 py-4">
@@ -17,8 +23,9 @@ const TableRow = ({ post, setShowDeleteModal, setCurrentPostId }) => {
       <td className="px-5 py-4">
         <TableActions
           setShowDeleteModal={setShowDeleteModal}
+          setShowCreatePostForm={setShowCreatePostForm}
           setCurrentPostId={setCurrentPostId}
-          postId={post.id}
+          currentPostId={post.id}
         />
       </td>
     </tr>
