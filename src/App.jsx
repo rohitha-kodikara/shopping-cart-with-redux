@@ -29,8 +29,6 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchPosts());
   }, [dispatch]);
-
-  if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
   return (
@@ -42,7 +40,11 @@ const App = () => {
       />
       <main className="pt-10">
         {isLoggedIn ? (
-          <PostLists posts={userUniquePosts} userId={userId} />
+          <PostLists
+            posts={userUniquePosts}
+            userId={userId}
+            isLoading={loading}
+          />
         ) : (
           <UserLogin
             setUsername={setUsername}

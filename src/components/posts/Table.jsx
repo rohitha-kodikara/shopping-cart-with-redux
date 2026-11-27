@@ -1,14 +1,21 @@
 import { useState } from "react";
 import TableRow from "../posts/TableRow";
 import DeleteConfirm from "./DeleteConfirm";
+import TableSkeleton from "./TableSkeleton";
 
-const Table = ({ posts }) => {
+const Table = ({ posts, isLoading = false }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const [currentPostId, setCurrentPostId] = useState(null);
 
   return (
     <div className="overflow-hidden rounded-xl border border-slate-700 bg-slate-800 shadow-xl">
       {showDeleteModal && (
-        <DeleteConfirm setShowDeleteModal={setShowDeleteModal} />
+        <DeleteConfirm
+          setShowDeleteModal={setShowDeleteModal}
+          currentPostId={currentPostId}
+          setCurrentPostId={setCurrentPostId}
+        />
       )}
       <table className="w-full table-fixed text-left text-sm">
         <colgroup>
@@ -27,16 +34,20 @@ const Table = ({ posts }) => {
           </tr>
         </thead>
 
-        <tbody className="divide-y divide-slate-700">
-          {/* Repeat this <tr> with .map() */}
-          {posts.map((post) => (
-            <TableRow
-              key={post.id}
-              post={post}
-              setShowDeleteModal={setShowDeleteModal}
-            />
-          ))}
-        </tbody>
+        {isLoading ? (
+          <TableSkeleton rows={5} />
+        ) : (
+          <tbody className="divide-y divide-slate-700">
+            {posts.map((post) => (
+              <TableRow
+                key={post.id}
+                post={post}
+                setShowDeleteModal={setShowDeleteModal}
+                setCurrentPostId={setCurrentPostId}
+              />
+            ))}
+          </tbody>
+        )}
       </table>
     </div>
   );

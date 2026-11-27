@@ -1,9 +1,15 @@
 import { useState } from "react";
 import Table from "./Table";
 import { CreatePost } from "./CreatePost";
+import { useSelector } from "react-redux";
 
-export default function PostList({ posts, userId }) {
+export default function PostList({ posts, userId, isLoading = false }) {
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
+
+  const deletedPostIds = useSelector((state) => state.posts.deletedPostIds);
+  const visiblePosts = posts.filter(
+    (post) => !deletedPostIds.includes(post.id),
+  );
 
   return (
     <>
@@ -31,7 +37,7 @@ export default function PostList({ posts, userId }) {
           />
         )}
         {/* Table */}
-        <Table posts={posts} />
+        <Table posts={visiblePosts} isLoading={isLoading} />
       </div>
     </>
   );

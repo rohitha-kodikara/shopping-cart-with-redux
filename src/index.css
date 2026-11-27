@@ -4,3 +4,24 @@
 html, body, #root {
   @apply bg-slate-900 text-white min-h-screen;
 }
+
+/* Shimmer animation for skeleton loaders */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    rgb(51 65 85) 0%,
+    rgb(71 85 105) 50%,
+    rgb(51 65 85) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}

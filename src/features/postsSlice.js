@@ -3,6 +3,7 @@ import {
   createSlice,
   isPending,
   isRejected,
+  nanoid,
 } from "@reduxjs/toolkit";
 
 //fetching posts from the API
@@ -42,7 +43,7 @@ export const addPost = createAsyncThunk(
       }
 
       const data = await response.json();
-      return data;
+      return { ...data, clientId: nanoid() };
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -108,12 +109,17 @@ const initialState = {
   posts: [],
   loading: false,
   error: null,
+  deletedPostIds: [], // Track deleted post IDs
 };
 
 const postsSlice = createSlice({
   name: "posts",
   initialState,
-  reducers: {},
+  reducers: {
+    addDeletedPostId: (state, action) => {
+      state.deletedPostIds.push(action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchPosts.fulfilled, (state, action) => {
@@ -150,4 +156,5 @@ const postsSlice = createSlice({
   },
 });
 
+export const { addDeletedPostId } = postsSlice.actions;
 export default postsSlice.reducer;

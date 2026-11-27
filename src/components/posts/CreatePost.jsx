@@ -12,7 +12,6 @@ export function CreatePost({ setShowCreatePostForm, userId }) {
 
   const handlePostSubmit = (e) => {
     e.preventDefault();
-    console.log("Post submitted:", postFormData);
     dispatch(addPost(postFormData));
 
     setShowCreatePostForm(false);

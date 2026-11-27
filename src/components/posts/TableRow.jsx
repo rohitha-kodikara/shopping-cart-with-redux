@@ -1,6 +1,6 @@
 import TableActions from "./TableActions";
 
-const TableRow = ({ post, setShowDeleteModal }) => {
+const TableRow = ({ post, setShowDeleteModal, setCurrentPostId }) => {
   return (
     <tr className="align-middle transition hover:bg-slate-800/50 even:bg-slate-800/30">
       <td className="px-5 py-4">
@@ -15,7 +15,11 @@ const TableRow = ({ post, setShowDeleteModal }) => {
         <p className="line-clamp-2 text-slate-400">{post.body}</p>
       </td>
       <td className="px-5 py-4">
-        <TableActions setShowDeleteModal={setShowDeleteModal} />
+        <TableActions
+          setShowDeleteModal={setShowDeleteModal}
+          setCurrentPostId={setCurrentPostId}
+          postId={post.id}
+        />
       </td>
     </tr>
   );
